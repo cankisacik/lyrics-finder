@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lyrics Finder</title>
+  <style>
+    body {
+      background: #000;
+      color: #0f0;
+      font-family: sans-serif;
+      text-align: center;
+      padding: 2em;
+    }
+    img.logo {
+      width: 100px;
+      margin-bottom: 1em;
+    }
+    input, button {
+      background: #000;
+      color: #0f0;
+      border: 1px solid #0f0;
+      padding: 0.5em;
+      margin: 0.5em;
+      font-size: 1em;
+    }
+    #lyrics {
+      margin-top: 1em;
+      white-space: pre-wrap;
+      background: #000;
+      color: #0f0;
+      padding: 1em;
+      border: 1px solid #0f0;
+    }
+  </style>
+</head>
+<body>
+  <img src="https://i.ibb.co/KcJmztJm/music-logo.png" alt="Logo" class="logo" />
+  <h1>Lyrics Finder</h1>
+  <input id="artist" placeholder="Artist" />
+  <input id="title" placeholder="Title" />
+  <button onclick="getLyrics()">Search</button>
+  <div id="lyrics"></div>
+
+  <script>
+    async function getLyrics() {
+      const artist = document.getElementById("artist").value;
+      const title = document.getElementById("title").value;
+      const lyricsBox = document.getElementById("lyrics");
+
+      if (!artist || !title) {
+        lyricsBox.textContent = "Enter artist and title.";
+        return;
+      }
+
+      lyricsBox.textContent = "Loading...";
+
+      try {
+        const res = await fetch(`https://api.lyrics.ovh/v1/${encodeURIComponent(artist)}/${encodeURIComponent(title)}`);
+        const data = await res.json();
+        lyricsBox.textContent = data.lyrics || "Lyrics not found.";
+      } catch (e) {
+        lyricsBox.textContent = "Error fetching lyrics.";
+      }
+    }
+  </script>
+</body>
+</html>

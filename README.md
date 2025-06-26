@@ -1,4 +1,3 @@
-# lyrics-finder
+enter artist and song name to get the lyrics of the song
 
-https://github.com/cankisacik/lyrics-finder/blob/main/note.png?raw=true
-
+see it action on www.cankisacik.com
